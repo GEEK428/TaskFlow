@@ -55,7 +55,7 @@ Rules:
     res.flushHeaders(); 
 
     
-    const models = ["gemini-3-flash-preview", "gemini-2.0-flash", "gemini-flash-latest", "gemini-1.5-flash"];
+    const models = ["gemini-3-flash-preview", "gemini-1.5-flash", "gemini-2.0-flash", "gemini-flash-latest"];
     let streamResult = null;
 
     for (const modelName of models) {
@@ -82,18 +82,19 @@ Rules:
           success = true;
           break; 
         } catch (error) {
-          const isCapacityError = error.message?.includes('503') || error.message?.includes('capacity');
           console.warn(`[AI Attempt ${attempt}] Model ${modelName} failed: ${error.message}`);
-          
           if (attempt === 3) break;
-          // Exponential backoff
           await new Promise(r => setTimeout(r, attempt * 1000));
         }
       }
       if (success) break; 
     }
 
-    if (!streamResult) throw new Error("AI over capacity");
+    if (!streamResult) {
+      res.write(`data: ${JSON.stringify({ text: "Flow AI is currently recharging its circuits (Google Quota Limit). Please try again in a few minutes! 🔋" })}\n\n`);
+      res.write('data: [DONE]\n\n');
+      return res.end();
+    }
 
     let fullAiResponse = '';
 
