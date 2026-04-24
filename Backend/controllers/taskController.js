@@ -114,7 +114,7 @@ exports.updateTask = async (req, res) => {
             req.body.isLate = false;
         }
 
-        task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        task = await Task.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         res.json(task);
     } catch (error) {
         res.status(400).json({ message: error.message });
