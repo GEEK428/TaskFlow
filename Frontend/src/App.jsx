@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 
-// Pages
+
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
@@ -21,12 +21,12 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public Routes */}
+          {}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* Protected Routes */}
+          {}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tasks" element={<MyTasks />} />
@@ -37,7 +37,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Route>
 
-          {/* Fallback for undefined routes */}
+          {}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </Router>

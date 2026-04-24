@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
 
-// Load and Validate environment variables
+
 const validateEnv = require('./config/env');
 validateEnv();
 
@@ -32,12 +32,12 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl requests)
+
         if (!origin) return callback(null, true);
-        
-        // Normalize origin for comparison
+
+
         const normalizedOrigin = origin.replace(/\/$/, '');
-        
+
         if (allowedOrigins.indexOf(normalizedOrigin) === -1) {
             console.error(`[CORS Error] Blocked origin: ${origin}. Expected one of: ${allowedOrigins.join(', ')}`);
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
@@ -56,21 +56,21 @@ app.use(cookieParser());
  * Prevents brute force and API abuse.
  */
 const globalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per window
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: 'Too many requests from this IP, please try again later'
 });
 
 const authLimiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
-    max: 10, // Limit each IP to 10 login attempts per hour
+    windowMs: 60 * 60 * 1000,
+    max: 10,
     message: 'Too many login attempts, please try again in an hour'
 });
 
 app.use('/api/', globalLimiter);
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
-// Google auth is exempt from strict auth limiter to avoid issues with social login flows
+
 
 
 /**
@@ -89,19 +89,25 @@ const connectDB = async () => {
 
 connectDB();
 
-// Initialize Scheduler
+
 const initScheduler = require('./utils/scheduler');
 initScheduler();
 
 /**
  * Route Definitions
+ * API Routes
  */
-// Routes
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/leaderboard', require('./routes/leaderboardRoutes'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/chat', require('./routes/chat'));
+
+
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'active', timestamp: new Date() });
+});
 
 app.get('/', (req, res) => {
     res.json({ message: "TaskFlow API is running..." });

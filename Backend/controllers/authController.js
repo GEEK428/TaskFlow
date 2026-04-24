@@ -111,19 +111,19 @@ exports.loginUser = async (req, res) => {
 exports.googleLogin = async (req, res) => {
     try {
         const { accessToken } = req.body;
-        
-        // Fetch user info from Google using the access token
+
+
         const googleRes = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`);
         const { name, email } = googleRes.data;
 
         let user = await User.findOne({ email });
 
         if (!user) {
-            // Return info for frontend to handle name collection
-            return res.json({ 
-                needsName: true, 
-                email, 
-                googleName: name 
+
+            return res.json({
+                needsName: true,
+                email,
+                googleName: name
             });
         }
 
@@ -165,7 +165,7 @@ exports.completeGoogleRegistration = async (req, res) => {
         let user = await User.create({
             name,
             email,
-            password: crypto.randomBytes(16).toString('hex') // Secure random password
+            password: crypto.randomBytes(16).toString('hex')
         });
 
         res.json({
@@ -191,7 +191,7 @@ exports.logoutUser = async (req, res) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.decode(token);
-        
+
         // Add to blacklist with TTL based on token expiry
         const expiresAt = new Date(decoded.exp * 1000);
         await Blacklist.create({ token, expiresAt });
@@ -239,7 +239,7 @@ exports.directReset = async (req, res) => {
             return res.status(404).json({ message: 'Email not registered' });
         }
 
-        // Check if new password is same as current
+
         if (user.password) {
             const isSame = await user.matchPassword(password);
             if (isSame) {
@@ -247,7 +247,7 @@ exports.directReset = async (req, res) => {
             }
         }
 
-        // Set new password
+
         user.password = password;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
@@ -269,7 +269,7 @@ exports.directReset = async (req, res) => {
 exports.updateProfile = async (req, res) => {
     try {
         const { name, avatar, reminderTime } = req.body;
-        
+
         const updateData = {};
         if (name) updateData.name = name;
         if (avatar !== undefined) updateData.avatar = avatar;
@@ -312,13 +312,13 @@ exports.updatePassword = async (req, res) => {
         const { password } = req.body;
         const user = await User.findById(req.user._id).select('+password');
 
-        // Complexity check
+
         const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
         if (!passRegex.test(password)) {
             return res.status(400).json({ message: 'Password does not meet complexity requirements' });
         }
 
-        // Check if new password is same as current
+
         if (user.password) {
             const isSame = await user.matchPassword(password);
             if (isSame) {
@@ -350,10 +350,10 @@ exports.deleteAccount = async (req, res) => {
             return res.status(400).json({ message: 'Name confirmation does not match' });
         }
 
-        // Delete the user and their tasks
+
         await Promise.all([
             User.findByIdAndDelete(req.user._id),
-            // We should also delete their tasks
+
             require('../models/Task').deleteMany({ user: req.user._id })
         ]);
 

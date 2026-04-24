@@ -1,5 +1,5 @@
 .brand-name-xl {
-    font-size: 1.85rem; /* Larger brand */
+    font-size: 1.85rem;
     font-weight: 800;
     letter-spacing: -0.7px;
     font-family: var(--font-brand);
@@ -26,18 +26,18 @@
 .sidebar-hero-section {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Tighter */
+    gap: 8px;
 }
 
 .hero-tagline-sm {
-    font-size: 0.55rem; /* Smaller */
+    font-size: 0.55rem;
     font-weight: 800;
     color: #48bb78;
     letter-spacing: 1.2px;
 }
 
 .hero-compact-title {
-    font-size: 1.8rem; /* Slightly smaller */
+    font-size: 1.8rem;
     line-height: 1.1;
     font-weight: 700;
 }
@@ -47,7 +47,7 @@
 }
 
 .hero-description-sm {
-    font-size: 0.75rem; /* Smaller */
+    font-size: 0.75rem;
     color: var(--text-dim);
     line-height: 1.5;
     max-width: 260px;
@@ -75,13 +75,13 @@
 }
 
 .feat-text-sm h4 {
-    font-size: 0.75rem; /* Smaller */
+    font-size: 0.75rem;
     font-weight: 700;
     margin-bottom: 2px;
 }
 
 .feat-text-sm p {
-    font-size: 0.65rem; /* Smaller */
+    font-size: 0.65rem;
     color: var(--text-mute);
     line-height: 1.3;
 }

@@ -17,12 +17,12 @@ const FlowAI = () => {
     const [streamingContent, setStreamingContent] = useState('');
     const scrollRef = useRef(null);
 
-    // --- Initial Setup & Persistence ---
+
     useEffect(() => {
-        // Track sessions for the floating action button (FAB) pulse effect
+
         const sessions = parseInt(localStorage.getItem('flow_sessions') || '0');
         const tooltipSeen = localStorage.getItem('flow_tooltip_seen');
-        
+
         if (sessions < 3) {
             setSessionCount(sessions + 1);
             localStorage.setItem('flow_sessions', (sessions + 1).toString());
@@ -34,7 +34,7 @@ const FlowAI = () => {
             setTimeout(() => setShowTooltip(true), 2000);
         }
 
-        // Load chat history from DB
+
         const fetchHistory = async () => {
             try {
                 const res = await api.get('/chat');
@@ -46,7 +46,7 @@ const FlowAI = () => {
         fetchHistory();
     }, []);
 
-    // Auto-scroll to bottom on new messages or streaming updates
+
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -61,7 +61,7 @@ const FlowAI = () => {
         const msgToSend = forcedMessage || input;
         if (!msgToSend.trim() || loading) return;
 
-        // Add user message to UI immediately
+
         const userMsg = { role: 'user', content: msgToSend };
         setMessages(prev => [...prev, userMsg]);
         setInput('');
@@ -71,17 +71,17 @@ const FlowAI = () => {
         try {
             const token = localStorage.getItem('token');
             const apiUrl = (api.defaults.baseURL || 'http://localhost:5000/api') + '/chat';
-            
-            // Initiate streaming fetch request
+
+
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     message: msgToSend,
-                    history: messages.slice(-10) // Send context
+                    history: messages.slice(-10)
                 })
             });
 
@@ -92,12 +92,12 @@ const FlowAI = () => {
             let aiContent = '';
             let buffer = '';
 
-            // Stream reading loop
+
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
 
-                // Handle partial SSE lines
+
                 buffer += decoder.decode(value, { stream: true });
                 const lines = buffer.split('\n\n');
                 buffer = lines.pop();
@@ -113,12 +113,12 @@ const FlowAI = () => {
                                 aiContent += parsedData.text;
                                 setStreamingContent(aiContent);
                             }
-                        } catch (e) {}
+                        } catch (e) { }
                     }
                 }
             }
 
-            // Commit final response to messages array
+
             if (aiContent) {
                 setMessages(prev => [...prev, { role: 'assistant', content: aiContent }]);
             }
@@ -136,7 +136,7 @@ const FlowAI = () => {
         localStorage.setItem('flow_tooltip_seen', 'true');
     };
 
-    // Listen for events from other components (like the Dashboard "Nudge")
+
     useEffect(() => {
         const handleNudge = (e) => {
             setIsOpen(true);
@@ -149,7 +149,7 @@ const FlowAI = () => {
     return (
         <>
             {/* Floating Action Button */}
-            <div className="flow-ai-fab" onClick={() => { setIsOpen(!isOpen); if(showTooltip) closeTooltip(); }}>
+            <div className="flow-ai-fab" onClick={() => { setIsOpen(!isOpen); if (showTooltip) closeTooltip(); }}>
                 {isOpen ? <X size={28} /> : <MessageSquare size={28} />}
                 {sessionCount <= 3 && !isOpen && <div className="fab-pulse"></div>}
             </div>
@@ -178,7 +178,7 @@ const FlowAI = () => {
                             </div>
                         </div>
                         <button onClick={() => setIsOpen(false)} className="header-close-btn">
-                            <X size={18}/>
+                            <X size={18} />
                         </button>
                     </header>
 
@@ -213,10 +213,10 @@ const FlowAI = () => {
 
                     <form className="chat-input-area" onSubmit={handleSend}>
                         <div className="chat-input-wrapper">
-                            <input 
-                                type="text" 
-                                placeholder="Ask Flow AI for tips..." 
-                                value={input} 
+                            <input
+                                type="text"
+                                placeholder="Ask Flow AI for tips..."
+                                value={input}
                                 onChange={(e) => setInput(e.target.value)}
                             />
                             <button type="submit" className="chat-send-btn" disabled={!input.trim()}>

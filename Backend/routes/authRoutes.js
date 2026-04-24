@@ -20,7 +20,7 @@ router.post('/logout', protect, logoutUser);
 router.post('/direct-reset', directReset);
 router.get('/me', protect, getMe);
 
-// New Settings Routes
+
 router.put('/profile', protect, updateProfile);
 router.put('/update-password', protect, updatePassword);
 router.delete('/delete-account', protect, deleteAccount);

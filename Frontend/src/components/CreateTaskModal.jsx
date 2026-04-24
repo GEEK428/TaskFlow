@@ -52,7 +52,7 @@ const CreateTaskModal = ({ isOpen, onClose, onTaskCreated }) => {
                 return setError('Invalid date or time format. Please re-enter.');
             }
 
-            // Prevent setting past deadlines
+            
             if (deadline <= now) {
                 return setError('Deadline must be in the future. Past times are not allowed.');
             }

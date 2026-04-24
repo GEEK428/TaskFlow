@@ -12,7 +12,7 @@ const Signup = () => {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Password Validation State
+
     const [requirements, setRequirements] = useState({
         length: false,
         upper: false,
@@ -40,7 +40,7 @@ const Signup = () => {
             return setError('Please fill in all mandatory fields.');
         }
 
-        // Name validation: Alphabetic characters and spaces only
+
         const nameRegex = /^[A-Za-z\s]+$/;
         if (!nameRegex.test(formData.name)) {
             return setError('Name can only contain alphabetic characters.');
@@ -92,19 +92,19 @@ const Signup = () => {
                     </div>
 
                     <form onSubmit={handleSubmit}>
-                        {error && <div className="error-pill" style={{marginBottom: '0.75rem'}}>{error}</div>}
+                        {error && <div className="error-pill" style={{ marginBottom: '0.75rem' }}>{error}</div>}
 
                         <div className="auth-input-group">
                             <label style={{ fontSize: '0.55rem' }}>Full Name</label>
                             <div className="auth-input-wrapper">
                                 <User size={14} className="input-icon" />
-                                <input 
+                                <input
                                     type="text" placeholder="John Doe" required
                                     value={formData.name}
                                     style={{ fontSize: '0.8rem' }}
                                     onChange={(e) => {
                                         const val = e.target.value.replace(/[^A-Za-z\s]/g, '');
-                                        setFormData({...formData, name: val});
+                                        setFormData({ ...formData, name: val });
                                     }}
                                 />
                             </div>
@@ -114,9 +114,9 @@ const Signup = () => {
                             <label>Email Address</label>
                             <div className="auth-input-wrapper">
                                 <Mail size={14} className="input-icon" />
-                                <input 
+                                <input
                                     type="email" placeholder="name@company.com" required
-                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
                         </div>
@@ -125,21 +125,21 @@ const Signup = () => {
                             <label>Password</label>
                             <div className="auth-input-wrapper">
                                 <Lock size={14} className="input-icon" />
-                                <input 
+                                <input
                                     type={showPass ? 'text' : 'password'} placeholder="••••••••" required
-                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 />
                                 <button type="button" className="eye-toggle" onClick={() => setShowPass(!showPass)}>
                                     {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
                                 </button>
                             </div>
 
-                            {/* Password Strength Meter - Only show when typing */}
+                            { }
                             {formData.password && (
                                 <div className="animate-fade" style={{ marginTop: '10px', marginBottom: '10px' }}>
                                     <div style={{ height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '2px', marginBottom: '8px', overflow: 'hidden' }}>
-                                        <div style={{ 
-                                            height: '100%', 
+                                        <div style={{
+                                            height: '100%',
                                             width: `${(Object.values(requirements).filter(Boolean).length / 4) * 100}%`,
                                             background: isPassStrong ? '#10b981' : '#fb7185',
                                             transition: 'all 0.3s'

@@ -1,7 +1,7 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const Chat = require('../models/Chat');
 
-// Initialize Gemini
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 /**
@@ -34,7 +34,7 @@ exports.sendMessage = async (req, res) => {
 
     if (!message) return res.status(400).json({ error: 'Message is required' });
 
-    // Step 1: System Prompt
+    
     const systemPrompt = `You are Flow AI, a sharp productivity coach and senior colleague.
 Your role is to help users with work, development, and efficiency.
 Rules:
@@ -42,19 +42,19 @@ Rules:
 - Give smart, senior colleague-level advice.
 - If asked something unrelated to work/productivity, gently bring it back to focus.`;
 
-    // Step 2: History Formatting
+   
     const chatHistory = (history || []).map(msg => ({
       role: msg.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: msg.content }]
     }));
 
-    // Step 3: SSE Headers
+    
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
     res.flushHeaders(); 
 
-    // Step 4: Multi-Model Fallback Logic
+    
     const models = ["gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"];
     let streamResult = null;
 
@@ -93,7 +93,7 @@ Rules:
 
     let fullAiResponse = '';
 
-    // Step 5: Streaming Loop
+   
     try {
       for await (const chunk of streamResult.stream) {
         try {
@@ -106,7 +106,7 @@ Rules:
       }
     } catch (e) {}
 
-    // Step 6: Save to DB
+    
     try {
       let chatDoc = await Chat.findOne({ user: userId });
       if (!chatDoc) chatDoc = new Chat({ user: userId, messages: [] });

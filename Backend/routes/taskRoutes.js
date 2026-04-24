@@ -3,7 +3,7 @@ const router = express.Router();
 const { createTask, getTasks, getTaskStats, updateTask } = require('../controllers/taskController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.use(protect); // Protect all task routes
+router.use(protect);
 
 router.route('/')
     .get(getTasks)

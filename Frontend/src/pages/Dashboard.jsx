@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Pagination States
+    
     const [pages, setPages] = useState({
         Todo: 0,
         'In Progress': 0,
@@ -104,7 +104,7 @@ const Dashboard = () => {
         <MainLayout>
             <div className="dashboard-view animate-fade" style={{ padding: '2rem 2.5rem', maxWidth: '100%', overflowX: 'hidden' }}>
                 
-                {/* Header */}
+                {}
                 <header style={{ marginBottom: '2.5rem' }}>
                     <h1 style={{ fontSize: '1.6rem', fontWeight: '800', marginBottom: '4px', letterSpacing: '-0.5px' }}>Welcome back, {user?.name.split(' ')[0]}</h1>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -114,7 +114,7 @@ const Dashboard = () => {
                     </div>
                 </header>
 
-                {/* Flow AI Nudge for Empty State */}
+                {}
                 {tasks.length === 0 && !loading && (
                     <div className="nudge-card animate-fade" style={{ marginBottom: '3rem' }} onClick={() => window.dispatchEvent(new CustomEvent('flowAiNudge'))}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
@@ -132,7 +132,7 @@ const Dashboard = () => {
                     </div>
                 )}
 
-                {/* Stats */}
+                {}
                 <div className="stats-grid stat-grid-mobile" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem', marginBottom: '3rem' }}>
                     {statCards.map((stat, i) => (
                         <div key={i} className="stat-card" style={{ background: 'rgba(255,255,255,0.02)', padding: '1.25rem 1.5rem', borderRadius: '16px', border: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', gap: '15px' }}>
@@ -147,7 +147,7 @@ const Dashboard = () => {
                     ))}
                 </div>
 
-                {/* Kanban with Pagination */}
+                {}
                 <div className="kanban-board kanban-grid-mobile" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
                     {['Todo', 'In Progress', 'Done'].map((status, i) => {
                         const allColTasks = getColTasks(status);
@@ -164,7 +164,7 @@ const Dashboard = () => {
                                         <span style={{ fontSize: '0.6rem', padding: '1px 6px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', color: 'var(--text-mute)', fontWeight: '800' }}>{allColTasks.length}</span>
                                     </div>
                                     
-                                    {/* Column Pagination Controls */}
+                                    {}
                                     {allColTasks.length > ITEMS_PER_PAGE && (
                                         <div style={{ display: 'flex', gap: '4px' }}>
                                             <button onClick={() => handlePageChange(status, 'prev')} disabled={currentPage === 0} style={{ background: 'transparent', border: 'none', color: currentPage === 0 ? 'rgba(255,255,255,0.1)' : 'var(--text-mute)', cursor: 'pointer' }}><ChevronLeft size={14}/></button>
@@ -242,7 +242,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Task Detail Modal */}
+            {}
             {isDetailModalOpen && selectedTask && (
                 <div className="animate-fade" style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 9999, display: 'grid', placeItems: 'center', backdropFilter: 'blur(10px)' }}>
                     <div style={{ background: '#0b0e14', borderRadius: '32px', padding: '2.5rem', width: '90%', maxWidth: '550px', border: '1px solid var(--border-light)', boxShadow: '0 40px 100px rgba(0,0,0,0.8)' }}>

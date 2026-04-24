@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a password'],
         minlength: 6,
-        select: false // Don't return password by default
+        select: false 
     },
     avatar: {
         type: String,
@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     reminderTime: {
-        type: String, // format "HH:MM"
+        type: String, 
         default: null
     },
     resetPasswordToken: String,

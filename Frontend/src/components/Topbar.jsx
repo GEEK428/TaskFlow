@@ -28,7 +28,7 @@ const Topbar = () => {
 
     useEffect(() => {
         fetchNotifications();
-        const interval = setInterval(fetchNotifications, 60000); // Check every minute
+        const interval = setInterval(fetchNotifications, 60000);
         return () => clearInterval(interval);
     }, []);
 
@@ -53,15 +53,15 @@ const Topbar = () => {
     const saveReminderTime = async () => {
         try {
             const res = await api.put('/auth/profile', { reminderTime });
-            // Update context and local storage immediately
+
             const updatedUser = { ...user, reminderTime: res.data.user.reminderTime };
             setUser(updatedUser);
             localStorage.setItem('user', JSON.stringify(updatedUser));
-            
-            // Close modal immediately
+
+
             setIsTimeModalOpen(false);
-            
-            // Dispatch event to notify scheduler or other components
+
+
             window.dispatchEvent(new CustomEvent('reminderUpdated'));
         } catch (err) {
             console.error('Error saving reminder time:', err);
@@ -86,17 +86,17 @@ const Topbar = () => {
             </div>
 
             <div className="topbar-actions">
-                {/* Daily Reminder Button */}
+                { }
                 <div className="icon-badge" onClick={() => setIsTimeModalOpen(true)} title="Daily Reminder">
                     <Clock size={20} className="theme-icon" />
                     {user?.reminderTime && <div style={{ position: 'absolute', bottom: '-2px', right: '-2px', width: '8px', height: '8px', background: 'var(--accent)', borderRadius: '50%', border: '2px solid var(--bg-deep)' }}></div>}
                 </div>
 
-                {/* Notification Bell */}
+                { }
                 <div className="icon-badge" onClick={() => setIsNotiOpen(!isNotiOpen)} style={{ position: 'relative' }}>
                     <Bell size={20} className="theme-icon" />
                     {unreadCount > 0 && <div className="notification-count">{unreadCount}</div>}
-                    
+
                     {isNotiOpen && (
                         <div ref={notiRef} className="animate-fade notification-dropdown-mobile" style={{ position: 'absolute', top: '55px', right: '0', width: '320px', background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)', zIndex: 1000, overflow: 'hidden' }}>
                             <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -124,7 +124,7 @@ const Topbar = () => {
                     )}
                 </div>
 
-                {/* Profile Trigger */}
+                { }
                 <div className="user-profile-trigger" onClick={() => navigate('/settings')} title="View Settings">
                     {user?.avatar ? (
                         <img src={user.avatar} alt="Profile" />
@@ -136,16 +136,16 @@ const Topbar = () => {
                 </div>
             </div>
 
-            {/* Daily Reminder Modal */}
+            { }
             {isTimeModalOpen && (
                 <div className="animate-fade" style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 1000, display: 'grid', placeItems: 'center' }}>
                     <div style={{ background: '#0b0e14', borderRadius: '32px', padding: '2.5rem', width: '100%', maxWidth: '400px', border: '1px solid var(--border-light)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem' }}>
                             <h3 style={{ fontSize: '1.2rem', fontWeight: '800' }}>Daily Intel Hub</h3>
-                            <button onClick={() => setIsTimeModalOpen(false)} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}><X size={20}/></button>
+                            <button onClick={() => setIsTimeModalOpen(false)} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}><X size={20} /></button>
                         </div>
                         <p style={{ fontSize: '0.85rem', color: 'var(--text-mute)', marginBottom: '2rem' }}>Set your preferred time for daily in-app productivity briefings and system alerts.</p>
-                        
+
                         <div className="auth-input-group" style={{ marginBottom: '2rem' }}>
                             <label>Reminder Time (Daily)</label>
                             <div className="auth-input-wrapper">
@@ -161,9 +161,9 @@ const Topbar = () => {
                 </div>
             )}
 
-            <CreateTaskModal 
-                isOpen={isModalOpen} 
-                onClose={() => setIsModalOpen(false)} 
+            <CreateTaskModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
                 onTaskCreated={() => window.dispatchEvent(new Event('taskCreated'))}
             />
         </header>

@@ -3,7 +3,7 @@
     height: 100%;
 }
 
-/* Sub Nav */
+
 .settings-subnav {
     width: 200px;
     border-right: 1px solid var(--border);
@@ -53,7 +53,7 @@
     background: var(--accent-soft);
 }
 
-/* Settings Main Area */
+
 .settings-main {
     flex: 1;
     padding: 2rem 3rem;
@@ -75,7 +75,7 @@
     margin-bottom: 2.5rem;
 }
 
-/* Profile specific */
+
 .avatar-block {
     display: flex;
     align-items: center;
@@ -117,7 +117,7 @@
     font-weight: 500;
 }
 
-/* Card layout */
+
 .settings-card {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -164,7 +164,7 @@
     margin-top: 1rem;
 }
 
-/* Password inputs */
+
 .password-input-wrapper {
     position: relative;
 }
@@ -193,7 +193,7 @@
 
 .meter-bar.active { background: var(--accent); }
 
-/* Danger zone */
+
 .danger-zone-card {
     border: 1px solid rgba(239, 68, 68, 0.2);
     background: rgba(239, 68, 68, 0.03);
@@ -232,7 +232,7 @@
     cursor: not-allowed;
 }
 
-/* Appearance & Notifications rows */
+
 .setting-row {
     display: flex;
     justify-content: space-between;
@@ -254,7 +254,7 @@
 
 .row-info p.text3 { color: var(--text3); font-size: 0.8rem; }
 
-/* Custom Toggle */
+
 .toggle-wrapper {
     cursor: pointer;
 }
@@ -292,7 +292,7 @@
     transform: translateX(20px);
 }
 
-/* Color Picker */
+
 .color-picker {
     display: flex;
     gap: 12px;
@@ -312,7 +312,7 @@
 .swatch:hover { transform: scale(1.1); }
 .swatch.active { transform: scale(1.2); box-shadow: 0 0 0 2px var(--bg1), 0 0 0 4px var(--accent); }
 
-/* Confirmation Modal */
+
 .confirm-delete {
     max-width: 400px;
 }

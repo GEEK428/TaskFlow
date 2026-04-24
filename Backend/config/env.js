@@ -1,7 +1,7 @@
 const { z } = require('zod');
 const dotenv = require('dotenv');
 
-// Load env variables first
+
 dotenv.config();
 
 const envSchema = z.object({
@@ -13,11 +13,11 @@ const envSchema = z.object({
 });
 
 function validateEnv() {
-  // Deep clean ALL process.env variables for any bleed-over characters
+
   const cleanEnv = {};
   Object.keys(process.env).forEach(key => {
     if (typeof process.env[key] === 'string') {
-      // Only remove trailing whitespace and newlines
+
       const value = process.env[key].split(/[\s\n\r]/)[0].trim();
       cleanEnv[key] = value;
     } else {
@@ -32,12 +32,12 @@ function validateEnv() {
     result.error.issues.forEach((issue) => {
       console.error(`   - ${issue.path.join('.')}: ${issue.message}`);
     });
-    // Fallback to defaults if validation fails
+
     process.env.PORT = '5000';
     return null;
   }
 
-  // Update process.env with cleaned values
+
   Object.assign(process.env, result.data);
   return result.data;
 }

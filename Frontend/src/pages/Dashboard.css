@@ -5,7 +5,7 @@
     overflow: hidden;
 }
 
-/* Sidebar Overhaul */
+
 .sidebar {
     width: 260px;
     height: calc(100vh - 40px);
@@ -124,7 +124,7 @@
 
 .logout-icon:hover { color: var(--accent); }
 
-/* Main Content */
+
 .main-content {
     flex: 1;
     padding: 2rem 2.5rem;
@@ -170,7 +170,7 @@
     font-size: 0.85rem;
 }
 
-/* Board */
+
 .board-container {
     flex: 1;
     display: grid;

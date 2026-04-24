@@ -11,7 +11,7 @@ import api from '../services/api';
 const Settings = () => {
     const { user, setUser, logout } = useAuth();
     
-    // States
+    
     const [name, setName] = useState(user?.name || '');
     const [avatar, setAvatar] = useState(user?.avatar || '');
     const [isCapturing, setIsCapturing] = useState(false);
@@ -39,7 +39,7 @@ const Settings = () => {
 
     const isPassStrong = Object.values(requirements).every(Boolean);
 
-    // Handlers
+   
     const startCamera = async () => {
         setIsCapturing(true);
         try {
@@ -108,7 +108,7 @@ const Settings = () => {
     const updatePassword = async () => {
         setMessage({ type: '', text: '' });
 
-        // Basic Validations
+        
         if (!passwords.new.trim() || !passwords.confirm.trim()) {
             return setMessage({ type: 'error', text: 'Please fill in both password fields.' });
         }
@@ -157,7 +157,7 @@ const Settings = () => {
                 <div className="mobile-scroll-container" style={{ marginBottom: '2rem' }}>
                     <div className="mobile-scroll-content" style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
                         
-                        {/* Modular Section: Avatar */}
+                        {}
                         <section style={{ background: 'rgba(255,255,255,0.02)', padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-light)' }}>
                             <h3 style={{ fontSize: '1rem', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
                                 <Camera size={18} color="var(--accent)" /> Identity Icon
@@ -199,7 +199,7 @@ const Settings = () => {
                             </div>
                         </section>
 
-                        {/* Modular Section: Name */}
+                        {}
                         <section style={{ background: 'rgba(255,255,255,0.02)', padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-light)' }}>
                             <h3 style={{ fontSize: '1rem', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
                                 <User size={18} color="var(--accent)" /> Personal Details
@@ -216,7 +216,7 @@ const Settings = () => {
                             </button>
                         </section>
 
-                        {/* Modular Section: Security */}
+                        {}
                         <section style={{ background: 'rgba(255,255,255,0.02)', padding: '2.5rem', borderRadius: '24px', border: '1px solid var(--border-light)' }}>
                             <h3 style={{ fontSize: '1rem', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '10px', fontWeight: '700' }}>
                                 <Shield size={18} color="var(--accent)" /> Vault Overhaul
@@ -256,7 +256,7 @@ const Settings = () => {
                             </button>
                         </section>
 
-                        {/* Danger Zone */}
+                        {}
                         <section style={{ background: 'rgba(251, 113, 133, 0.05)', padding: '2.5rem', borderRadius: '24px', border: '1px solid rgba(251, 113, 133, 0.2)' }}>
                             <h3 style={{ fontSize: '1rem', color: '#fb7185', marginBottom: '1rem', fontWeight: '800' }}>Permanent Deletion</h3>
                             <p style={{ fontSize: '0.85rem', color: 'var(--text-mute)', marginBottom: '2.5rem', lineHeight: '1.8' }}>
@@ -272,7 +272,7 @@ const Settings = () => {
                 </div>
             </div>
 
-            {/* Modals: Camera & Delete */}
+            {}
             {isCapturing && (
                 <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.9)', zIndex: 1000, display: 'grid', placeItems: 'center' }}>
                     <div style={{ background: '#0b0e14', borderRadius: '32px', padding: '2rem', width: '100%', maxWidth: '500px', border: '1px solid var(--border-light)' }}>

@@ -14,7 +14,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     
-    // Google Registration State
+    
     const [googleRegistration, setGoogleRegistration] = useState(null);
     const [newName, setNewName] = useState('');
 

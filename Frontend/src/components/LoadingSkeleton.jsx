@@ -9,7 +9,7 @@ import './LoadingSkeleton.css';
 const LoadingSkeleton = () => {
     return (
         <div className="dashboard-layout skeleton-layout">
-            {/* Sidebar Skeleton */}
+            {}
             <aside className="sidebar">
                 <div className="sidebar-header">
                     <div className="logo-box skeleton"></div>
