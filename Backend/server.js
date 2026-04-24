@@ -24,7 +24,7 @@ const app = express();
  * - Cookie Parser: Parses cookies for JWT authentication
  */
 const allowedOrigins = [
-    process.env.FRONTEND_URL,
+    process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null,
     'http://localhost:5173',
     'http://localhost:5174',
     'http://localhost:5175'
@@ -34,7 +34,12 @@ app.use(cors({
     origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
+        
+        // Normalize origin for comparison
+        const normalizedOrigin = origin.replace(/\/$/, '');
+        
+        if (allowedOrigins.indexOf(normalizedOrigin) === -1) {
+            console.error(`[CORS Error] Blocked origin: ${origin}. Expected one of: ${allowedOrigins.join(', ')}`);
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             return callback(new Error(msg), false);
         }
