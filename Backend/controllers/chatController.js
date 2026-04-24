@@ -55,14 +55,14 @@ Rules:
     res.flushHeaders(); 
 
     
-    const models = ["gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-flash-latest"];
+    const models = ["gemini-3-flash-preview", "gemini-2.0-flash", "gemini-flash-latest", "gemini-1.5-flash"];
     let streamResult = null;
 
     for (const modelName of models) {
       let success = false;
-      for (let attempt = 1; attempt <= 2; attempt++) {
+      for (let attempt = 1; attempt <= 3; attempt++) {
         try {
-          res.write(`data: ${JSON.stringify({ text: '', status: 'connecting', model: modelName })}\n\n`);
+          res.write(`data: ${JSON.stringify({ text: '', status: 'connecting', model: modelName, attempt })}\n\n`);
           
           const model = genAI.getGenerativeModel({ 
             model: modelName,
@@ -76,14 +76,18 @@ Rules:
 
           streamResult = await Promise.race([
             chatSession.sendMessageStream(message),
-            new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 10000))
+            new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 15000))
           ]);
           
           success = true;
           break; 
         } catch (error) {
-          if (attempt === 2) break;
-          await new Promise(r => setTimeout(r, 500));
+          const isCapacityError = error.message?.includes('503') || error.message?.includes('capacity');
+          console.warn(`[AI Attempt ${attempt}] Model ${modelName} failed: ${error.message}`);
+          
+          if (attempt === 3) break;
+          // Exponential backoff
+          await new Promise(r => setTimeout(r, attempt * 1000));
         }
       }
       if (success) break; 
