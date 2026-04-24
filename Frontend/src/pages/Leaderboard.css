@@ -1,0 +1,94 @@
+.leaderboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.stat-card {
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-val {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--font-syne);
+}
+
+.stat-val.accent-color { color: var(--accent); }
+
+.stat-card label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-mute);
+    letter-spacing: 1px;
+}
+
+.rankings-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.rank-list-header {
+    display: flex;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-mute);
+    letter-spacing: 1px;
+}
+
+.rank-rows {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.rank-row {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    transition: background 0.2s;
+}
+
+.rank-row:hover { background: rgba(255, 255, 255, 0.02); }
+
+.rank-row.is-me { background: var(--accent-soft); }
+
+.col-rank { width: 80px; }
+.col-user { flex: 1; display: flex; align-items: center; gap: 1rem; }
+.col-score { width: 100px; text-align: right; }
+
+.medal { font-weight: 800; font-family: var(--font-syne); }
+.rank-num { color: var(--text-mute); font-size: 0.85rem; }
+
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-input);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.rank-row .name { font-size: 0.9rem; font-weight: 500; }
+.rank-row .you { font-size: 0.75rem; color: var(--text-mute); margin-left: 8px; }
+
+.col-score { font-size: 1rem; font-weight: 600; }

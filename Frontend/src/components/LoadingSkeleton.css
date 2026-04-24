@@ -1,0 +1,37 @@
+.skeleton-layout {
+    pointer-events: none;
+}
+
+.user-block-skeleton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+.user-info-skeleton {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-card-skeleton {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius-sm);
+}
+
+.card-footer-skeleton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skeleton.circle {
+    border-radius: 50%;
+}
+
+/* Stagger animation delays for natural feel */
+.skeleton:nth-child(2n) { animation-delay: 0.1s; }
+.skeleton:nth-child(3n) { animation-delay: 0.2s; }
+.skeleton:nth-child(4n) { animation-delay: 0.3s; }

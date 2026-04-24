@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "*.log",
+    ".env",
+    "node_modules",
+    "**/Chat.js",
+    "**/*.json"
+  ],
+  "watch": ["."],
+  "ext": "js,mjs,cjs"
+}
